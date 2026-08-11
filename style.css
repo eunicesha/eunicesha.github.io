@@ -1,0 +1,414 @@
+/* ==========================================================================
+   Fada Print and Signs — design tokens
+   Palette: job-ticket paper, ink, and safety-vinyl accent colours
+   ========================================================================== */
+
+:root {
+  --ink: #1a1a1a;
+  --paper: #f6f2e8;
+  --paper-dim: #ece5d4;
+  --signal: #d6472b;   /* sign-vinyl red */
+  --vinyl: #f2b705;    /* sign-vinyl yellow */
+  --steel: #6b675f;
+  --line: rgba(26, 26, 26, 0.18);
+  --line-strong: rgba(26, 26, 26, 0.55);
+
+  --display: "Anton", "Arial Narrow", sans-serif;
+  --body: "Work Sans", "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", "Courier New", monospace;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation: none !important; transition: none !important; }
+}
+
+a { color: inherit; }
+
+img { max-width: 100%; display: block; }
+
+/* Crop / registration marks — the recurring signature motif,
+   borrowed from print production sheets. */
+.crop {
+  position: relative;
+}
+.crop::before,
+.crop::after,
+.crop > .crop-tr,
+.crop > .crop-bl {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+}
+.crop::before { /* top-left */
+  top: -1px; left: -1px;
+  border-top: 2px solid var(--ink);
+  border-left: 2px solid var(--ink);
+}
+.crop::after { /* bottom-right */
+  bottom: -1px; right: -1px;
+  border-bottom: 2px solid var(--ink);
+  border-right: 2px solid var(--ink);
+}
+
+/* ==========================================================================
+   Header / nav
+   ========================================================================== */
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px clamp(20px, 5vw, 56px);
+  border-bottom: 2px solid var(--ink);
+  background: var(--paper);
+}
+
+.brand {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand .dot {
+  width: 9px;
+  height: 9px;
+  background: var(--signal);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.site-nav {
+  display: flex;
+  gap: clamp(16px, 3vw, 36px);
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.site-nav a {
+  text-decoration: none;
+  padding-bottom: 3px;
+  border-bottom: 2px solid transparent;
+}
+
+.site-nav a:hover,
+.site-nav a[aria-current="page"] {
+  border-bottom-color: var(--signal);
+}
+
+.site-nav a:focus-visible,
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 3px;
+}
+
+/* ==========================================================================
+   Hero
+   ========================================================================== */
+
+.hero {
+  padding: clamp(48px, 9vw, 108px) clamp(20px, 5vw, 56px) clamp(40px, 7vw, 80px);
+  border-bottom: 2px solid var(--ink);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--steel);
+  margin: 0 0 18px;
+}
+
+.hero-eyebrow::before {
+  content: "// ";
+  color: var(--signal);
+}
+
+.hero h1 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(3rem, 11vw, 8rem);
+  line-height: 0.92;
+  letter-spacing: 0.01em;
+  margin: 0 0 28px;
+  text-transform: uppercase;
+}
+
+.hero h1 .line2 {
+  color: var(--signal);
+  display: block;
+}
+
+.hero p.tagline {
+  font-size: clamp(1.05rem, 2.2vw, 1.4rem);
+  max-width: 40ch;
+  margin: 0;
+  color: #2b2b2b;
+}
+
+/* ==========================================================================
+   Services — printed as a job-ticket list
+   ========================================================================== */
+
+.services {
+  padding: clamp(40px, 7vw, 72px) clamp(20px, 5vw, 56px);
+  border-bottom: 2px solid var(--ink);
+}
+
+.section-label {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--steel);
+  margin: 0 0 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-label::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1px;
+  background: var(--ink);
+  border: 2px solid var(--ink);
+}
+
+.service-card {
+  background: var(--paper);
+  padding: 30px 26px;
+  position: relative;
+}
+
+.service-card .num {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--signal);
+  display: block;
+  margin-bottom: 14px;
+}
+
+.service-card h3 {
+  font-family: var(--display);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: 1.55rem;
+  margin: 0 0 10px;
+  letter-spacing: 0.01em;
+}
+
+.service-card p {
+  margin: 0;
+  color: var(--steel);
+  font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   Contact — swatch cards
+   ========================================================================== */
+
+.contact {
+  padding: clamp(40px, 7vw, 72px) clamp(20px, 5vw, 56px);
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: clamp(18px, 3vw, 28px);
+}
+
+.contact-card {
+  border: 2px solid var(--ink);
+  padding: 26px 24px 22px;
+  margin: 10px;
+}
+
+.contact-card .crop-tr {
+  top: -1px; right: -1px;
+  border-top: 2px solid var(--ink);
+  border-right: 2px solid var(--ink);
+}
+.contact-card .crop-bl {
+  bottom: -1px; left: -1px;
+  border-bottom: 2px solid var(--ink);
+  border-left: 2px solid var(--ink);
+}
+
+.contact-card .label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--signal);
+  margin: 0 0 12px;
+}
+
+.contact-card .value {
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin: 0;
+  word-break: break-word;
+}
+
+.contact-card a.value {
+  text-decoration: none;
+}
+
+.contact-card a.value:hover {
+  color: var(--signal);
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+.site-footer {
+  border-top: 2px solid var(--ink);
+  padding: 22px clamp(20px, 5vw, 56px);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--steel);
+  letter-spacing: 0.04em;
+}
+
+/* ==========================================================================
+   Inner pages (About / Projects)
+   ========================================================================== */
+
+.page-hero {
+  padding: clamp(40px, 7vw, 76px) clamp(20px, 5vw, 56px) clamp(28px, 5vw, 48px);
+  border-bottom: 2px solid var(--ink);
+}
+
+.page-hero h1 {
+  font-family: var(--display);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(2.4rem, 7vw, 4.5rem);
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+.page-body {
+  padding: clamp(36px, 6vw, 64px) clamp(20px, 5vw, 56px);
+  max-width: 760px;
+}
+
+.page-body p {
+  font-size: 1.1rem;
+  margin: 0 0 20px;
+}
+
+.stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 2px solid var(--signal);
+  color: var(--signal);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  transform: rotate(-2deg);
+  margin: 6px 0 30px;
+}
+
+.stamp .dot {
+  width: 7px;
+  height: 7px;
+  background: var(--signal);
+  border-radius: 50%;
+}
+
+/* Empty state — projects page */
+.empty-ticket {
+  border: 2px dashed var(--line-strong);
+  padding: clamp(40px, 8vw, 80px) 24px;
+  text-align: center;
+  margin: clamp(20px, 4vw, 40px) 0;
+}
+
+.empty-ticket .icon {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--signal);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin: 0 0 16px;
+}
+
+.empty-ticket h2 {
+  font-family: var(--display);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  margin: 0 0 12px;
+}
+
+.empty-ticket p {
+  color: var(--steel);
+  max-width: 44ch;
+  margin: 0 auto;
+  font-size: 1rem;
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 560px) {
+  .site-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .site-nav {
+    gap: 18px;
+  }
+  .contact-card {
+    margin: 6px 0;
+  }
+}
